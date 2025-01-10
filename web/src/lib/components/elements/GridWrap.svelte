@@ -8,6 +8,7 @@
   $: emptySlots = items.length < 8 ? 8 - items.length : 0;
 </script>
 
+
 <div bind:this={gridContainer}>
   {#each displayedItems as item}
     <slot name="GridItem" {item}></slot>
@@ -15,10 +16,11 @@
 
   {#if emptySlots > 0}
     {#each Array(emptySlots) as _}
-      <GridItem Empty />
+      <GridItem />
     {/each}
   {/if}
 </div>
+
 
 <style>
   div {

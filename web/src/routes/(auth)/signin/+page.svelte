@@ -1,7 +1,6 @@
 <script lang="ts">
   import { goto } from "$app/navigation";
   import { _ } from "svelte-i18n";
-  import logo from '$lib/assets/logo.svg';
 
   $: email = '';
   $: password = '';
@@ -43,20 +42,12 @@
   }
 </script>
 
+
 <svelte:head>
   <title>{$_('signin')} • mixel-music</title>
 </svelte:head>
 
-<!-- <div class="signin-head">
-  <img src={logo} alt="logo" class="logo" />
-  <h1>{$_('signin')}</h1>
-</div> -->
-
 <div class="signin-form">
-  <!-- <div class="signin-head">
-    <img src={logo} alt="logo" class="logo" />
-  </div> -->
-
   <form on:submit={handleSubmit}>
     <input
       type="email"
@@ -80,14 +71,6 @@
 </div>
 
 <style>
-  .signin-head {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-l);
-    align-items: center;
-    margin-bottom: var(--space-l);
-  }
-
   .signin-form {
     display: flex;
     justify-content: space-evenly;
@@ -116,11 +99,6 @@
     padding: var(--space-s) calc(var(--space-s) + 2px);
     transition: all 0.2s ease;
     backdrop-filter: blur(32px);
-  }
-
-  .logo {
-    width: 64px;
-    height: 64px;
   }
 
   .login-button {

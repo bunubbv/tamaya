@@ -9,8 +9,8 @@
   export let fileSizeTotal: number = 0;
 </script>
 
-<div class="detail">
 
+<div class="detail">
   {#if trackTotal === 1}
     {$_('info.track',{values: {track_total: trackTotal}})}, {convertDateTime(durationTotal)} <br>
   {:else}
@@ -24,6 +24,7 @@
     {comment}
   {/if}
 </div>
+
 
 <style>
   .detail {

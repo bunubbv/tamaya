@@ -13,6 +13,7 @@
   export let preload: string = 'false';
 </script>
 
+
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <svelte:element
   class:round={button == 'round'}
@@ -39,6 +40,7 @@
 
   <slot />
 </svelte:element>
+
 
 <style>
   .round {

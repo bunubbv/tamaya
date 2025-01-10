@@ -5,6 +5,8 @@ import type {
   TrackResponse,
   ArtistsResponse,
   ArtistResponse,
+  PlaylistsResponse,
+  PlaylistResponse,
 } from "./interface";
 import { apiFetch } from "./tools";
 
@@ -207,5 +209,37 @@ export async function getArtist(
 
   catch (error) {
     throw error;
+  }
+};
+
+
+export async function getPlaylists(
+  fetch: typeof window.fetch,
+  start: number,
+  end: number,
+): Promise<{response: PlaylistsResponse;}> {
+
+  try {
+    const fetchArtists = await apiFetch(fetch,
+      `http://localhost:2843/api/playlists`);
+
+    if (!fetchArtists.ok) {
+      throw new Error(fetchArtists.statusText);
+    }
+
+    const response: PlaylistsResponse = await fetchArtists.json();
+
+    return {
+      response,
+    };
+  }
+
+  catch (error) {
+    return {
+      response: {
+        "playlists": [],
+        "total": 0,
+      },
+    }
   }
 };

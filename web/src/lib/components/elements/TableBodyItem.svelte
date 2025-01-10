@@ -12,9 +12,11 @@
   $: additionalStyle = size === 'xs' ? 'text-overflow: clip; max-height: 50px;' : '';
 </script>
 
+
 <div style={`flex: ${flexSize}; ${additionalStyle}`}>
   <slot />
 </div>
+
 
 <style>
   div {

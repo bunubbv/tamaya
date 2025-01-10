@@ -8,6 +8,7 @@
   export let data: PageData;
 </script>
 
+
 <svelte:head>
   <title>
     {data.album.album

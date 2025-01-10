@@ -41,7 +41,7 @@ class ArtworkService:
 
 
     async def get_artwork(self, id: str, size: int) -> Path | None:
-        if size:
+        if size != 0:
             thumb = self.convert_hash(id, size)
             return thumb if thumb.is_file() else None
         else:

@@ -5,10 +5,12 @@
   let imageUrl = getArtwork(albumId, 500);
 </script>
 
+
 <div
   class="album-wrap"
   style="background-image: url({imageUrl})"
 />
+
 
 <style>
   .album-wrap {
@@ -37,5 +39,7 @@
       hsla(0, 0%, 13.93%, 0.803) 99.2%, 
       hsla(0, 0%, 14%, 0.8) 100%
     );
+
+    /* border-image: fill 0 linear-gradient(to bottom, hsla(0, 0%, 7%, 0.63) 0%, hsla(0, 0%, 6.99%, 0.635) 8.1%, hsla(0, 0%, 6.95%, 0.648) 15.5%, hsla(0, 0%, 6.9%, 0.668) 22.5%, hsla(0, 0%, 6.84%, 0.695) 29%, hsla(0, 0%, 6.75%, 0.726) 35.3%, hsla(0, 0%, 6.67%, 0.76) 41.2%, hsla(0, 0%, 6.57%, 0.797) 47.1%, hsla(0, 0%, 6.47%, 0.833) 52.9%, hsla(0, 0%, 6.37%, 0.87) 58.8%, hsla(0, 0%, 6.27%, 0.904) 64.7%, hsla(0, 0%, 6.19%, 0.935) 71%, hsla(0, 0%, 6.11%, 0.962) 77.5%, hsla(0, 0%, 6.05%, 0.982) 84.5%, hsla(0, 0%, 6.01%, 0.995) 91.9%, hsl(0, 0%, 6%) 100%); */
   }
 </style>

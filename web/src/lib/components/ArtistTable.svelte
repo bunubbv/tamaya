@@ -11,6 +11,7 @@
   export let artists: Artists[];
 </script>
 
+
 <Table>
   <TableHead>
     <TableHeadItem size='xl'>{$_('label.artist')}</TableHeadItem>

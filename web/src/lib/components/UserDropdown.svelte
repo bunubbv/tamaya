@@ -5,19 +5,14 @@
   import { _ } from 'svelte-i18n'
 </script>
 
-<Dropdown
-  dropdownOpenIcon='iconoir:user'
->
 
-  <DropdownItem
-    icon="iconoir:settings"
-  >
+<Dropdown dropdownOpenIcon='iconoir:user'>
+  
+  <DropdownItem icon="iconoir:settings">
     {$_('settings.user')}
   </DropdownItem>
 
-  <DropdownItem
-    icon="iconoir:wrench"
-  >
+  <DropdownItem icon="iconoir:wrench">
     {$_('settings.server')}
   </DropdownItem>
 

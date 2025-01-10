@@ -16,6 +16,7 @@
   export let list: AlbumResponse;
 </script>
 
+
 <Table>
   <TableHead>
     <TableHeadItem size='xs'>#</TableHeadItem>

@@ -22,6 +22,7 @@ export interface Track {
   albumartist_id: string;
   artist: string;
   artist_id: string;
+  barcode?: string;
   bitdepth: number;
   bitrate: number;
   channels: number;
@@ -29,6 +30,7 @@ export interface Track {
   comment?: string;
   composer?: string;
   content_type: string;
+  copyright?: string;
   created_at?: string;
   date?: string;
   director?: string;
@@ -153,4 +155,31 @@ export interface PlayerState {
 
 export interface PlayerStore extends PlayerState, Tracks {
   artwork?: string;
-}
+};
+
+
+export interface Playlist {
+  playlist_id: string;
+  playlist_name: string;
+  playlist_user: string;
+  created_at: string;
+  updated_at: string;
+};
+
+
+export interface PlaylistData {
+  playlist_id: string;
+  track_id: string;
+  added_at: string;
+};
+
+
+export interface PlaylistsResponse {
+  playlists: Playlist[];
+  total: number;
+};
+
+
+export interface PlaylistResponse {
+  tracks: AlbumTrack[];
+};

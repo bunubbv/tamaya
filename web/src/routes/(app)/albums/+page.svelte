@@ -34,6 +34,7 @@
   }
 </script>
 
+
 <svelte:head>
   <title>{$_(data.title)} • mixel-music</title>
 </svelte:head>
@@ -48,7 +49,6 @@
       href={getAlbumLink(item.album_id)}
       src={item.album_id}
       alt={item.album ? item.album : $_('unknown_album')}
-      lazyload
     >
       <GridItemDetail
         title={item.album ? item.album : $_('unknown_album')}

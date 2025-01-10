@@ -1,5 +1,5 @@
 from datetime import datetime
-from tinytag import TinyTag
+from tinytag import TinyTag, Image, Images
 from typing import Any
 from tools.path_handler import get_path, str_path
 from tools.convert_value import (
@@ -16,15 +16,23 @@ def extract_tags(path: str) -> dict[str, Any]:
     
     try:
         tags = TinyTag.get(real_path)
-
         date, year = convert_date(tags.year)
+        
         if tags.album:
-            album_id = hash_str(
-                tags.album,
-                tags.albumartist or '',
-                tags.track_total or 0,
-                str_path(get_path(path).parent),
-            )
+            if tags.disc_total:
+                album_id = hash_str(
+                    tags.album,
+                    tags.albumartist or '',
+                    tags.disc_total,
+                    str_path(get_path(path).parent),
+                )
+            else:
+                album_id = hash_str(
+                    tags.album,
+                    tags.albumartist or '',
+                    tags.track_total or 0,
+                    str_path(get_path(path).parent),
+                )
         else:
             album_id = hash_str(
                 tags.artist,
@@ -45,6 +53,7 @@ def extract_tags(path: str) -> dict[str, Any]:
             'albumartist_id': albumartist_id,
             'artist': tags.artist or '',
             'artist_id': hash_str(convert_artist(tags.artist.lower())) or '',
+            'barcode': safe_list(tags.extra, 'barcode'),
             'bitdepth': tags.bitdepth or 0,
             'bitrate': tags.bitrate or 0.0,
             'channels': tags.channels or 0,
@@ -52,7 +61,7 @@ def extract_tags(path: str) -> dict[str, Any]:
             'compilation': True if safe_list(tags.extra, 'compilation') else False,
             'composer': tags.composer or '',
             'content_type': get_mime(path),
-            'created_at': datetime.now(),
+            'copyright': safe_list(tags.extra, 'copyright'),
             'date': date,
             'director': safe_list(tags.extra, 'director'),
             'directory': str_path(get_path(path).parent),
@@ -64,25 +73,27 @@ def extract_tags(path: str) -> dict[str, Any]:
             'genre': tags.genre or '',
             'isrc': safe_list(tags.extra, 'isrc'),
             'label': safe_list(tags.extra, 'label'),
-            'lyrics': '',
+            'lyrics': safe_list(tags.extra, 'lyrics'),
             'samplerate': tags.samplerate or 0,
             'title': tags.title or '',
             'track_id': hash_str(path),
             'track_number': tags.track or 0,
             'track_total': tags.track_total or 0,
-            'updated_at': datetime.now(),
             'year': year,
         }
 
         return track_dict
     
-    except:
+    except Exception as e:
         return {}
 
 
 def extract_artwork(path: str) -> bytes | None:
     try:
-        artwork = TinyTag.get(get_path(path), image=True)
-        return artwork.get_image() if artwork else None
+        tag: TinyTag = TinyTag.get(get_path(path), image=True)
+        images: Images = tag.images
+        cover_image: Image = images.front_cover
+
+        return cover_image.data if cover_image is not None else None
     except:
         return None

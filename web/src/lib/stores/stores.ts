@@ -42,11 +42,9 @@ function InitPlayerService() {
 
       if (stats.lists[stats.index + 1]) {
         PlayerService.setTrack(stats.index + 1);
-        console.log("stats.index found");
       }
       else if (stats.loop === 1) {
         PlayerService.setTrack(0);
-        console.log("go to first");
       }
     }
   };
@@ -112,7 +110,6 @@ function InitPlayerService() {
         // index type check, index 0 또는 자연수 여부 검증, 리스트 길이보다 작은지 검증
       }
 
-      console.debug(newLists);
       return { ...state, lists: newLists };
     });
 
@@ -137,7 +134,6 @@ function InitPlayerService() {
     update(state => {
       const track = state.lists[index];
       const validIndex = Math.max(0, Math.min(index, state.lists.length - 1));
-      console.debug(`setTrack called with ${index}`);
 
       if (track) {
         audio.src = `http://localhost:2843/api/library/streaming/${track.track_id}`;
@@ -153,7 +149,6 @@ function InitPlayerService() {
         audio.ontimeupdate = updateState;
 
         audio.onerror = (): void => {
-          console.error("Failed to play track.");
           update(state => ({ ...state, isLoaded: false }));
         };
 
@@ -234,10 +229,6 @@ function InitPlayerService() {
         else {
           audio.currentTime = 0;
         }
-        
-        // if (newIndex !== state.index) {
-        //   PlayerService.setTrack(newIndex);
-        // }
 
         return {
           ...state,

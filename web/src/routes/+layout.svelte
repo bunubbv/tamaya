@@ -25,9 +25,11 @@
   })
 </script>
 
+
 <div id="app">
   <slot />
 </div>
+
 
 <style>
   #app {

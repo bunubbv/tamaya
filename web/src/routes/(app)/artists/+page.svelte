@@ -5,8 +5,9 @@
     removeLinkParams,
     getPaginatedList,
   } from '$lib/tools';
-  import PageTitle from '$lib/components/elements/PageTitle.svelte';
   import ArtistTable from '$lib/components/ArtistTable.svelte';
+  import PageTitle from '$lib/components/elements/PageTitle.svelte';
+  import Textbox from '$lib/components/elements/Textbox.svelte';
   import Button from '$lib/components/elements/Button.svelte';
   import { _ } from 'svelte-i18n';
 
@@ -41,11 +42,21 @@
   }
 </script>
 
+
 <svelte:head>
   <title>{$_(data.title)} • mixel-music</title>
 </svelte:head>
 
 <PageTitle title={$_(data.title)} />
+
+<div>
+  <Textbox
+    name="search"
+    type="search"
+    width="316px"
+    placeholder={$_('navbar.search')}
+  />
+</div>
 
 {#if data.artists}
   <ArtistTable artists={artists.artists} />
@@ -68,11 +79,16 @@
   </div>
 {/if}
 
+
 <style>
   .bottom-ctl {
     gap: 12px;
     display: flex;
     justify-content: flex-end;
     margin: var(--space-m) 0;
+  }
+
+  div {
+    margin-bottom: var(--space-m);
   }
 </style>

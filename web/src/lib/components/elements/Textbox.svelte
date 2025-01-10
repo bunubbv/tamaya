@@ -9,6 +9,7 @@
   export let required: boolean = false;
 </script>
 
+
 {#if type === 'password'}
   <input
     {name}

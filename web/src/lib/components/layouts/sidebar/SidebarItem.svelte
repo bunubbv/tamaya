@@ -33,6 +33,8 @@
     border-radius: var(--radius-m);
     text-decoration: none;
     min-height: 50px;
+    user-select: none;
+    -webkit-user-drag: none;
   }
 
   a:hover {

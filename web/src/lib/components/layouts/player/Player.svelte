@@ -113,7 +113,7 @@
           $isQueueOpen = !$isQueueOpen;
         }}
         alt={$_('player.queue')}
-        icon="iconoir:playlist"
+        icon="iconoir:playlist-play"
         off={!$isQueueOpen}
       />
 

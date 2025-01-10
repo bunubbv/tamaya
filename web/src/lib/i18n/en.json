@@ -3,16 +3,16 @@
     "sidebar.search": "Search",
     "sidebar.my_mix": "My Mix",
     "sidebar.library": "Library",
-    "sidebar.library.albums": "Albums",
+    "sidebar.library.playlists": "Playlists",
+    "sidebar.library.recent_played": "Recents",
     "sidebar.library.artists": "Artists",
+    "sidebar.library.albums": "Albums",
     "sidebar.library.tracks": "Tracks",
     "sidebar.playlists": "Playlists",
     "sidebar.playlists.create": "Create Playlist",
-
     "navbar.previous": "Previous",
     "navbar.next": "Next",
     "navbar.search": "Search...",
-
     "player.front_cover": "Front Cover",
     "player.previous": "Previous",
     "player.play": "Play",
@@ -24,37 +24,30 @@
     "player.repeat": "repeat",
     "player.repeat_all": "repeat all",
     "player.repeat_one": "repeat one",
-
     "label.title": "Title",
     "label.artist": "Artist",
     "label.album": "Album",
     "label.albumartist": "Album Artist",
     "label.time": "Time",
     "label.count": "",
-
     "albums.title": "Albums",
     "artists.title": "Artists",
     "tracks.title": "Tracks",
-
     "unknown_album": "Unknown Album",
     "unknown_year": "Unknown Year",
     "unknown_artist": "Unknown Artist",
-
     "controls.play": "Play",
     "controls.shuffle": "Shuffle",
     "controls.download": "Download",
     "controls.album_info": "Album Info",
     "controls.favorite": "Favorite",
-
     "info.track": "{track_total} Track",
     "info.tracks": "{track_total} Tracks",
     "info.year": "{year}",
-
     "email": "Email",
     "signin": "Sign In",
     "logout": "Logout",
     "password": "Password",
-
     "settings.user": "User Settings",
     "settings.server": "Server Settings"
 }

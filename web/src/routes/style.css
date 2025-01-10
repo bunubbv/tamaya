@@ -97,6 +97,8 @@ iframe,
 embed,
 object {
   display: block;
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
 img,
@@ -106,8 +108,6 @@ video {
 }
 
 * {
-  user-select: none;
-  -webkit-user-drag: none;
   box-sizing: border-box;
   padding: 0;
   margin: 0;
@@ -159,6 +159,8 @@ a:hover, a:focus {
 
 button {
   cursor: pointer;
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
 .text {
@@ -181,4 +183,14 @@ button {
 
 .bold {
   font-weight: 600;
+}
+
+::selection {
+  color: var(--black-5);
+  background: var(--white-5);
+}
+
+input {
+  user-select: none;
+  -webkit-user-drag: none;
 }

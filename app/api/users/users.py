@@ -1,6 +1,8 @@
-from fastapi import APIRouter, Depends, Response, status
+from fastapi import APIRouter, Query, Depends, Response, status, Request
 from models.user import UserResponseModel, UsersResponseModel, UserUpdateModel
-from core.depends import get_user_service
+from models.playlist import PlaylistsResponseModel
+from services.auth import AuthService
+from core.depends import get_user_service, get_playlist_service
 
 router = APIRouter()
 
@@ -46,3 +48,15 @@ async def api_delete_user(
     
     await service.delete_user(user_id)
     return Response(status_code=status.HTTP_204_NO_CONTENT)
+
+
+# @router.get('/{user_id}/playlists', response_model=PlaylistsResponseModel)
+# async def api_get_user_id_playlists(
+#     user_id: str,
+#     start: int = Query(1, ge=1),
+#     end: int = Query(40, ge=1),
+#     service: get_playlist_service = Depends(),
+# ) -> PlaylistsResponseModel:
+    
+#     playlists = await service.get_playlists(user_id, start, end)
+#     return playlists

@@ -54,7 +54,6 @@ class UserService:
             email=data.email,
             username=data.username,
             password=AuthService.password_encode(data.password),
-            created_at=datetime.now(),
         )
 
         await self.repo.create_user(user_item.model_dump())

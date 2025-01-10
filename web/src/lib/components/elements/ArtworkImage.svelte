@@ -4,13 +4,13 @@
   export let width: string | number | undefined = undefined;
   export let height: string | number | undefined = undefined;
   export let FullCover: boolean = false;
-  export let WrapCover: boolean = false;
   export let lazyload: boolean = true;
   
   $: showArtwork = true;
 </script>
 
-<div class:wrap={WrapCover} style="height: {height}px;">
+
+<div style="height: {height}px;">
   {#if showArtwork}
     <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
     <img
@@ -29,10 +29,11 @@
   {/if}
 </div>
 
+
 <style>
   div {
     aspect-ratio: 1/1;
-    display: inline-flex;
+    display: flex;
     background-color: var(--dark-element);
     border: 1px solid var(--dark-border);
     border-radius: var(--radius-s);
@@ -42,15 +43,11 @@
     aspect-ratio: 1/1;
     border-radius: var(--radius-s);
     object-fit: scale-down;
+    user-select: none;
+    -webkit-user-drag: none;
   }
 
   .full {
     object-fit: cover;
   }
-
-  /* .wrap {
-    border: none;
-    box-shadow: 0 0 0 1px #ffffff0c inset;
-    background-color: #1818184f;
-  } */
 </style>

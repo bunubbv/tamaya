@@ -1,81 +1,38 @@
 <script lang="ts">
   import { getArtwork } from "$lib/tools";
+  import ArtworkImage from "./ArtworkImage.svelte";
 
-  export let lazyload: boolean = false;
   export let href: string | undefined = undefined;
   export let alt: string | undefined = undefined;
   export let src: string | undefined = undefined;
-  export let round: boolean = false;
-  export let Empty: boolean = false;
-
-  $: showArtwork = true;
 </script>
 
-{#if !Empty}
-  <div class="grid-item">
-    {#if src}
-      <div class="item-body {round ? 'round' : ''}">
-        <a
-          data-sveltekit-preload-data
-          tabindex="-1"
-          on:click
-          {href}
-          >
-          {#if showArtwork}
-            <img
-              loading={lazyload ? 'lazy' : null}
-              src={getArtwork(src, 300)} {alt} on:error={() => showArtwork = !showArtwork}
-            >
-          {/if}
-        </a>
-      </div>
 
-      <slot />
-    {:else}
-      <div class="item-body {round ? 'round' : ''}">
-        <a tabindex="-1" {href} on:click>
+<div class="grid-item">
+  {#if src}
+    <a
+      data-sveltekit-preload-data tabindex="-1" on:click {href}>
+      <ArtworkImage src={getArtwork(src, 300)} {alt}/>
+    </a>
+    <slot />
 
-        </a>
-      </div>
-      <slot />
-    {/if}
-  </div>
-{:else}
-  <div class="card-item empty">
-    
-  </div>
-{/if}
+  {:else}
+    <!-- svelte-ignore a11y-missing-content -->
+    <a data-sveltekit-preload-data tabindex="-1" on:click {href} />
+    <slot />
+
+  {/if}
+</div>
+
 
 <style>
-  a {
-    width: 100%;
-  }
-
   .grid-item {
     white-space: nowrap;
     margin-bottom: var(--space-m);
   }
 
-  .item-body {
-    width: auto;
-    display: flex;
-    background-color: var(--dark-element);
-    box-shadow: 0 0 0 1px var(--dark-border) inset;
-    aspect-ratio: 1/1;
-    border-radius: var(--radius-s);
-  }
-
-  .empty {
-    visibility: hidden;
-  }
-
-  .round, .round:focus {
-    border-radius: var(--radius-l);
-  }
-
-  img {
-    object-fit: scale-down;
-    aspect-ratio: 1/1;
-    border-radius: var(--radius-s);
+  a {
+    user-select: none;
+    -webkit-user-drag: none;
   }
 </style>

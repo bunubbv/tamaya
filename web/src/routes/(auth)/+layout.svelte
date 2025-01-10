@@ -2,9 +2,11 @@
   import '../style.css';
 </script>
 
+
 <div id="wrap">
   <slot />
 </div>
+
 
 <style>
   #wrap {

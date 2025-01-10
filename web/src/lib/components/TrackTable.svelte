@@ -17,6 +17,7 @@
   export let tracks: Tracks[];
 </script>
 
+
 <Table>
   <TableHead>
     <TableHeadItem size='xl'>{$_('label.title')}</TableHeadItem>

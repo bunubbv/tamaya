@@ -25,15 +25,17 @@ async def api_get_artwork(
     if not data:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
 
-    loop = asyncio.get_running_loop()
-    img = await loop.run_in_executor(service.executor, Image.open, io.BytesIO(data))
-    format = img.format.lower()
+    if size != 0:
+        loop = asyncio.get_running_loop()
+        img = await loop.run_in_executor(service.executor, Image.open, io.BytesIO(data))
+        format = img.format.lower()
 
-    await loop.run_in_executor(service.executor, img.thumbnail, [size, size], Image.Resampling.LANCZOS)
+        await loop.run_in_executor(service.executor, img.thumbnail, [size, size], Image.Resampling.LANCZOS)
 
-    buffer = io.BytesIO()
-    img.save(buffer, format)
-    buffer.seek(0)
+        buffer = io.BytesIO()
+        img.save(buffer, format)
+        buffer.seek(0)
 
-    await loop.run_in_executor(service.executor, service.save_artwork, img, id, size, format)
-    return StreamingResponse(buffer, media_type=f'image/{format}')
+        await loop.run_in_executor(service.executor, service.save_artwork, img, id, size, format)
+        return StreamingResponse(buffer, media_type=f'image/{format}')
+        

@@ -94,11 +94,19 @@ export function removeLinkParams(params: Record<string, string>): void {
 
 
 export function convertDateTime(time: number): string {
-  const min = Math.floor(time / 60);
+  const hours = Math.floor(time / 3600);
+  const min = Math.floor((time % 3600) / 60);
   const sec = Math.floor(time % 60);
 
-  return `${ min }:${ sec < 10 ? '0' : '' }${ sec }`;
-};
+  // 시간 단위 처리
+  const hoursStr = hours > 0 ? `${hours}:` : '';
+  // 분 단위 처리
+  const minStr = hours > 0 ? `${min.toString().padStart(2, '0')}:` : `${min}:`;
+  // 초 단위 처리
+  const secStr = `${sec.toString().padStart(2, '0')}`;
+
+  return `${hoursStr}${minStr}${secStr}`;
+}
 
 
 export function convertFileSize(size: number): string {

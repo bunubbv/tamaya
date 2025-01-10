@@ -100,12 +100,12 @@
     right: var(--space-s);
     flex-direction: column;
     flex-shrink: 0;
-    width: 400px;
+    width: 340px;
     height: calc(100% - 96px - calc(var(--space-s)* 2));
     box-shadow: 0 0 0 1px var(--dark-border) inset;
     background-color: var(--dark-queue);
     border-radius: var(--radius-m);
-    gap: var(--space-m);
+    gap: 18px;
     overflow-y: scroll;
     padding: var(--space-s);
     backdrop-filter: blur(64px);
@@ -130,5 +130,12 @@
     margin-left: auto;
     align-items: center;
     gap: var(--space-xs);
+  }
+
+  a {
+    display: block;
+    width: auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 </style>

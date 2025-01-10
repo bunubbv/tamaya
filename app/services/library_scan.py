@@ -10,8 +10,15 @@ class LibraryScan:
     async def perform_all() -> None:
         await asyncio.gather(
             LibraryScan.perform_albums(),
-            LibraryScan.perform_artists()
+            LibraryScan.perform_artists(),
+            return_exceptions=True,
         )
+
+
+    @staticmethod
+    async def perform_albums() -> None:
+        async with db_conn as conn:
+            pass
 
 
     @staticmethod
@@ -149,7 +156,7 @@ class LibraryScan:
             )
 
             result = await conn.execute(orphan_albumartists_query)
-            orphan_albumartists = [row[0] for row in result]
+            orphan_albumartists = {row[0] for row in result}
 
-            if orphan_albumartists:
-                await LibraryRepo(conn).delete_artist(orphan_albumartists)
+            for artist_id in orphan_albumartists:
+                await LibraryRepo(conn).delete_artist(artist_id)

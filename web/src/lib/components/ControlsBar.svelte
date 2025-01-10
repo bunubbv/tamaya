@@ -7,6 +7,7 @@
   export let tracks: Tracks[];
 </script>
 
+
 <div class="controls-bar">
   <div>
     <Button
@@ -43,6 +44,7 @@
     </Button>
   </div>
 </div>
+
 
 <style>
   .controls-bar {

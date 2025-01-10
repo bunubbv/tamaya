@@ -10,9 +10,11 @@
   }[size] || 1;
 </script>
 
+
 <div style={`flex: ${flexSize};`}>
   <slot />
 </div>
+
 
 <style>
   div {

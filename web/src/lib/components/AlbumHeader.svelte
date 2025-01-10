@@ -13,13 +13,13 @@
   $: artwork = getArtwork(albumId, 500);
 </script>
 
+
 <div class="album-header">
   <ArtworkImage
     src={artwork}
     alt={album}
     width={270}
     height={270}
-    WrapCover
     lazyload={false}
   />
 
@@ -36,20 +36,14 @@
           </span>
         </a>
       {/if}
-
-      <!-- <div>
-        <span class="detail">
-          {year != 0 ? $_('info.year',{values: {year: year}}) : $_('unknown_year')}
-      </div> -->
-
     </div>
 
-      {#if tracks}
-        <ControlsBar {tracks} />
-      {/if}
-
+    {#if tracks}
+      <ControlsBar {tracks} />
+    {/if}
   </div>
 </div>
+
 
 <style>
   .album-header {

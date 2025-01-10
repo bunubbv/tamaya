@@ -10,6 +10,7 @@
   $: albumId = $page.params.albumId;
 </script>
 
+
 <Sidebar />
 
 <div id="wrap">
@@ -25,6 +26,7 @@
 
 <PlayerQueue />
 <Player />
+
 
 <style>
   #wrap {

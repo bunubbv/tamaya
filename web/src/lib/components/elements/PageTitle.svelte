@@ -4,6 +4,7 @@
   export let size: string = 'xl';
 </script>
 
+
 {#if title}
   <div
     style:display={ inline ? 'inline' : ''}
@@ -14,9 +15,10 @@
   </div>
 {/if}
 
+
 <style>
   div {
-    margin-bottom: var(--space-l);
+    margin-bottom: 27px;
   }
 
   .xl {
