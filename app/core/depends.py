@@ -1,6 +1,6 @@
 from fastapi import Depends
 from core.database import db_conn, AsyncGenerator
-from services.library import LibraryService
+from services.library.library import LibraryService
 from services.playlist import PlaylistService
 from services.user import UserService
 from repos.library import LibraryRepo

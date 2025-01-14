@@ -135,8 +135,7 @@ class LibraryScan:
                     'duration_total': art.duration_total,
                     'filesize_total': art.filesize_total,
                 }
-                
-                logs.debug(artist_data)
+
                 await LibraryRepo(conn).insert_artist(artist_data)
 
         async with db_conn() as conn:

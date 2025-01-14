@@ -9,34 +9,6 @@ class UserRepo:
         self.conn = conn
 
 
-    async def get_user_id_from_email(self, email: str) -> str | None:
-        if not email: return None
-
-        query = await self.conn.execute(
-            select(User.user_id).where(User.email == email)
-        )
-        result = query.mappings().first()
-        return result.user_id if result.user_id else None
-    
-
-    async def is_user_exist(self, user_id: str) -> bool:
-        if not user_id: return False
-
-        query = await self.conn.execute(
-            select(User).where(User.user_id == user_id)
-        )
-        result = query.mappings().first()
-        return True if result else False
-    
-
-    async def get_password(self, email: str) -> str | None:
-        query = await self.conn.execute(
-            select(User.password).where(User.email == email)
-        )
-        result = query.mappings().first()
-        return None if result is None else result.get('password')
-
-
     async def get_users(self) -> dict[str, Any]:
         users_query = await self.conn.execute(select(User.__table__))
         users = users_query.mappings().all()
@@ -48,19 +20,27 @@ class UserRepo:
         return users, total_query
 
 
-    async def get_user(self, user_id: str) -> dict[str, Any]:
-        user_item = {}
-        db_query = await self.conn.execute(
-            select(User.__table__).where(User.user_id == user_id)
-        )
-        user_item = db_query.mappings().first()
+    async def get_user(
+        self,
+        user_id: str | None = None,
+        email: str | None = None
+    ) -> dict[str, Any]:
 
-        if user_item:
-            return dict(user_item)
+        if user_id:
+            db_query = await self.conn.execute(
+                select(User.__table__).where(User.user_id == user_id)
+            )
+            user_item = db_query.mappings().first()
+            return dict(user_item) if user_item else {}
+        
         else:
-            raise NoResultFound
+            db_query = await self.conn.execute(
+                select(User.__table__).where(User.email == email)
+            )
+            user_item = db_query.mappings().first()
+            return dict(user_item) if user_item else {}
 
-    
+
     async def create_user(self, user_data: dict[str, Any]) -> None:
         await self.conn.execute(
             insert(User).values(**user_data)

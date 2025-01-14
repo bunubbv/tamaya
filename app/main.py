@@ -17,7 +17,7 @@ from services.scanner import scanner, tracker
 from tools.path_handler import create_dir, get_path
 
 
-with open('pyproject.toml') as f:
+with open('pyproject.toml', encoding='utf-8') as f:
     pyproject = toml.load(f)
     VERSION = pyproject['tool']['poetry']['version']
 
@@ -68,6 +68,7 @@ if Config.DEBUG:
         """
         Apply favicon and dark theme for swagger docs.
         """
+        
         return get_swagger_ui_html(
             openapi_url=app.openapi_url,
             title=f'API • {app.title}',

@@ -5,8 +5,8 @@ from core.config import Config
 from core.database import db_conn
 from core.logging import logs
 from repos.library import LibraryRepo
-from services.library_scan import LibraryScan
-from services.library_task import LibraryTask
+from services.library.cleanup import LibraryScan
+from services.library.task import LibraryTask
 from tools.path_handler import Path, get_path, str_path, is_supported_file
 
 

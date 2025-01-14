@@ -3,6 +3,7 @@
   import SidebarItem from './SidebarItem.svelte';
   import { _ } from 'svelte-i18n';
   import { getPlaylists } from '../../../requests';
+  import { getArtwork, getPlaylistLink } from '$lib/tools';
 
   let playlists = [];
 
@@ -40,10 +41,6 @@
       {$_('sidebar.library.playlists')}
     </SidebarItem>
 
-    <SidebarItem href='/recents' icon='iconoir:clock-rotate-right'>
-      {$_('sidebar.library.recent_played')}
-    </SidebarItem>
-
     <SidebarItem href='/artists' icon='iconoir:microphone'>
       {$_('sidebar.library.artists')}
     </SidebarItem>
@@ -65,8 +62,12 @@
 
       {#if playlists.length > 0}
         {#each playlists as playlist}
-          <SidebarItem href={`/playlists/${playlist.playlist_id}`} icon='iconoir:music-note'>
-            {playlist.playlist_name}
+          <SidebarItem
+            href={getPlaylistLink(playlist.playlist_id)}
+            src={getArtwork(playlist.playlist_id, 50)}
+            icon='iconoir:music-note'
+          >
+            {playlist.playlist_title}
           </SidebarItem>
         {/each}
       {/if}
@@ -86,7 +87,7 @@
 
   .sidebar-playlist {
     position: fixed;
-    height: calc(100dvh - 530px - 100px);
+    height: calc(100dvh - 530px - 100px + 50px);
     bottom: 96px;
     width: 240px;
     overflow: scroll;

@@ -10,7 +10,7 @@ export const load: PageLoad = async ({ fetch, url }) => {
 
     return {
       artists: data.response,
-      title: 'artists.title',
+      title: 'title.artists',
       start: start,
       end: end,
     };

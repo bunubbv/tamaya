@@ -1,6 +1,5 @@
-from datetime import datetime
-from tinytag import TinyTag, Image, Images
 from typing import Any
+from tinytag import TinyTag, Image, Images, TinyTagException
 from tools.path_handler import get_path, str_path
 from tools.convert_value import (
     hash_str,
@@ -12,6 +11,13 @@ from tools.convert_value import (
 
 
 def extract_tags(path: str) -> dict[str, Any]:
+    """
+    Extract metadata tags from a music file using TinyTag.
+
+    Args:
+        path (str): The path to the music file.
+    """
+    
     path, real_path = str_path(path), get_path(path)
     
     try:
@@ -84,16 +90,23 @@ def extract_tags(path: str) -> dict[str, Any]:
 
         return track_dict
     
-    except Exception as e:
+    except TinyTagException:
         return {}
 
 
 def extract_artwork(path: str) -> bytes | None:
+    """
+    Extract the front cover artwork from a music file using TinyTag.
+
+    Args:
+        path (str): The path to the music file.
+    """
+
     try:
         tag: TinyTag = TinyTag.get(get_path(path), image=True)
         images: Images = tag.images
         cover_image: Image = images.front_cover
 
         return cover_image.data if cover_image is not None else None
-    except:
+    except TinyTagException:
         return None

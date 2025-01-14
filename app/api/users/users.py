@@ -1,8 +1,6 @@
-from fastapi import APIRouter, Query, Depends, Response, status, Request
+from fastapi import APIRouter, Depends, Response, status
 from models.user import UserResponseModel, UsersResponseModel, UserUpdateModel
-from models.playlist import PlaylistsResponseModel
-from services.auth import AuthService
-from core.depends import get_user_service, get_playlist_service
+from core.depends import get_user_service
 
 router = APIRouter()
 
@@ -13,8 +11,7 @@ async def api_get_users(
     service: get_user_service = Depends(),
 ) -> UsersResponseModel:
     
-    users = await service.get_users()
-    return users
+    return await service.get_users()
 
 
 @router.get('/{user_id}',
@@ -25,8 +22,7 @@ async def api_get_user(
     service: get_user_service = Depends(),
 ) -> UserResponseModel:
     
-    user = await service.get_user(user_id)
-    return user
+    return await service.get_user(user_id)
 
 
 @router.put('/{user_id}')
@@ -37,7 +33,7 @@ async def api_update_user(
 ) -> None:
     
     await service.update_user(user_id, user_data)
-    return
+    return Response(status_code=status.HTTP_204_NO_CONTENT)
 
 
 @router.delete('/{user_id}')
@@ -48,15 +44,3 @@ async def api_delete_user(
     
     await service.delete_user(user_id)
     return Response(status_code=status.HTTP_204_NO_CONTENT)
-
-
-# @router.get('/{user_id}/playlists', response_model=PlaylistsResponseModel)
-# async def api_get_user_id_playlists(
-#     user_id: str,
-#     start: int = Query(1, ge=1),
-#     end: int = Query(40, ge=1),
-#     service: get_playlist_service = Depends(),
-# ) -> PlaylistsResponseModel:
-    
-#     playlists = await service.get_playlists(user_id, start, end)
-#     return playlists

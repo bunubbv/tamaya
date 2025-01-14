@@ -26,7 +26,7 @@
       width="290px"
       placeholder={$_('navbar.search')}
     />
-    <Button button='round' iconName='iconoir:refresh' />
+    <Button button='round' iconName='iconoir:clock-rotate-right' />
 
     <UserDropdown />
   </div>

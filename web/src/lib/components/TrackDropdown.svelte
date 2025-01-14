@@ -47,9 +47,10 @@
           title: track.title,
           track_id: track.track_id,
         }]
-      , false, 1)
+      , false, PlayerService.getState.index + 1)
     }
   >
+    <!-- 현재 재생 중인 트랙이 꼭 0번째 순서일까?????????? -->
     다음에 재생
   </DropdownItem>
 

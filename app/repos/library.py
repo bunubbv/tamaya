@@ -193,23 +193,15 @@ class LibraryRepo:
         result = result.all()
 
         return result
-    
-
-    async def get_item_path(self, id: str) -> dict[Any, Any]:
-        result = await self.conn.execute(
-            select(Track.filepath)
-            .where(
-                or_(Track.album_id == id, Track.track_id == id)
-            )
-        )
-
-        data = result.mappings().first()
-        return dict(data) if data else {}
 
     
-    async def get_path_by_track_id(self, track_id: str) -> str:
+    async def get_item_path(self, id: str) -> str:
+        '''
+        Get string path from album or track ID.
+        '''
+
         result = await self.conn.execute(
-            select(Track.filepath).where(Track.track_id == track_id)
+            select(Track.filepath).where(or_(Track.track_id == id, Track.album_id == id))
         )
 
         row = result.scalars().first()

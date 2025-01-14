@@ -8,6 +8,7 @@
   import PlayerQueue from "$lib/components/layouts/player/PlayerQueue.svelte";
 
   $: albumId = $page.params.albumId;
+  $: playListId = $page.params.playListId;
 </script>
 
 
@@ -16,6 +17,10 @@
 <div id="wrap">
   {#if albumId}
     <AlbumWrap {albumId} />
+  {/if}
+
+  {#if playListId}
+    <AlbumWrap albumId={playListId} />
   {/if}
 
   <div id="contents">
@@ -43,6 +48,7 @@
     padding: 0 72px;
     padding-bottom: 46px;
     backdrop-filter: blur(46px);
+    height: 100%;
   }
 
   @media screen and (max-width: 1960px) {

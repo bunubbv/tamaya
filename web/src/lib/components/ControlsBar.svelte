@@ -1,10 +1,10 @@
 <script lang="ts">
-  import type { Tracks } from "$lib/interface";
+  import type { PlaylistTrack, Tracks } from "$lib/interface";
   import PlayerService from "$lib/stores/stores";
   import Button from "./elements/Button.svelte";
   import { _ } from 'svelte-i18n'
 
-  export let tracks: Tracks[];
+  export let tracks: Tracks[] | PlaylistTrack[];
 </script>
 
 

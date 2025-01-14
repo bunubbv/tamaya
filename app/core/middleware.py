@@ -1,11 +1,10 @@
 from fastapi import Request, Response
 from starlette.middleware.base import BaseHTTPMiddleware
-from services.auth import AuthService
+from services.session import SessionService
 
 
 class CustomSessionMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next) -> Response:
-        # 이거 너무 아닌 것 같음
         allowed = [
             "/api/auth/signup",
             "/api/auth/signin",
@@ -24,7 +23,7 @@ class CustomSessionMiddleware(BaseHTTPMiddleware):
             response.delete_cookie("session")
             return response
 
-        username = AuthService.get_user_id(session_id)
+        username = SessionService.get_user_id(session_id)
         if not username:
             response = Response(status_code=401)
             response.delete_cookie("session")

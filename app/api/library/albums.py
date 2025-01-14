@@ -11,8 +11,7 @@ async def api_get_albums(
     service: get_library_service = Depends(),
 ) -> AlbumsResponseModel:
     
-    albums = await service.get_albums(start, end)
-    return albums
+    return await service.get_albums(start, end)
 
 
 @router.get('/albums/{album_id}', response_model=AlbumResponseModel)
@@ -21,5 +20,5 @@ async def api_get_album(
     service: get_library_service = Depends(),
 ) -> AlbumResponseModel:
     
-    album = await service.get_album(album_id)
-    return album
+    return await service.get_album(album_id)
+    

@@ -11,8 +11,7 @@ async def api_get_artists(
     service: get_library_service = Depends(),
 ) -> ArtistsResponseModel:
 
-    artists = await service.get_artists(start, end)
-    return artists
+    return await service.get_artists(start, end)
 
 
 @router.get('/artists/{artist_id}', response_model=ArtistResponseModel)
@@ -21,5 +20,4 @@ async def api_get_artist(
     service: get_library_service = Depends(),
 ) -> ArtistResponseModel:
     
-    artist = await service.get_artist(artist_id)
-    return artist
+    return await service.get_artist(artist_id)

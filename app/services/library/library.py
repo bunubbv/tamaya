@@ -1,4 +1,5 @@
 import aiofiles
+import asyncio
 from typing import Any
 from fastapi import HTTPException, status
 from core.database import NoResultFound
@@ -8,16 +9,16 @@ from tools.path_handler import get_path
 
 
 class LibraryService:
+    semaphore = asyncio.Semaphore(5)
+
     def __init__(self, repo: LibraryRepo) -> None:
         self.repo = repo
+        self.tags = {}
 
 
     async def get_tracks(self, start: int, end: int) -> dict[str, list[dict[str, Any]] | int]:
         tracks, total = await self.repo.get_tracks(start, end)
-        return {
-            "tracks": tracks,
-            "total": total
-        }
+        return { "tracks": tracks, "total": total }
 
 
     async def get_track(self, track_id: str) -> dict[str, Any]:
@@ -29,10 +30,7 @@ class LibraryService:
 
     async def get_albums(self, start: int, end: int) -> dict[str, list[dict[str, Any]] | int]:
         albums, total = await self.repo.get_albums(start, end)
-        return {
-            "albums": albums,
-            "total": total
-        }
+        return { "albums": albums, "total": total }
 
 
     async def get_album(self, album_id: str) -> dict[str, list[dict[str, Any] | None] | Any]:
@@ -44,10 +42,7 @@ class LibraryService:
 
     async def get_artists(self, start: int, end: int) -> dict[str, list[dict[str, Any]] | int]:
         artists, total = await self.repo.get_artists(start, end)
-        return {
-            "artists": artists,
-            "total": total
-        }
+        return { "artists": artists, "total": total }
 
 
     async def get_artist(self, artist_id: str) -> dict[str, list[dict[str, Any]] | Any]:
@@ -58,8 +53,10 @@ class LibraryService:
     
 
     async def streaming(self, track_id: str, range: str) -> tuple[bytes, dict[str, Any]]:
+        path = await self.repo.get_item_path(track_id)
+        print(path)
         try:
-            path = await self.repo.get_path_by_track_id(track_id)
+            path = await self.repo.get_item_path(track_id)
             track_info = await self.repo.get_track(track_id)
         except:
             raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)

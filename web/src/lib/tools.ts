@@ -37,11 +37,16 @@ export const getArtistLink = (artistId: string): string => {
 };
 
 
+export const getPlaylistLink = (playListId: string): string => {
+  return `/playlists/${playListId}`;
+};
+
+
 import { replaceState } from "$app/navigation";
-import { getAlbums, getArtists, getTracks, postLogout } from "./requests";
+import { getAlbums, getArtists, getTracks, getPlaylists, postLogout } from "./requests";
 
 type PageDirection = 'next' | 'prev';
-type PageDataTypes = 'album' | 'artist' | 'track';
+type PageDataTypes = 'album' | 'artist' | 'track' | 'playlist';
 
 export async function getPaginatedList(
   fetch: typeof window.fetch,
@@ -59,6 +64,8 @@ export async function getPaginatedList(
         return getArtists;
       case 'track':
         return getTracks;
+      case 'playlist':
+        return getPlaylists;
       default:
         throw new Error('Invalid data type');
     }
@@ -98,11 +105,8 @@ export function convertDateTime(time: number): string {
   const min = Math.floor((time % 3600) / 60);
   const sec = Math.floor(time % 60);
 
-  // 시간 단위 처리
   const hoursStr = hours > 0 ? `${hours}:` : '';
-  // 분 단위 처리
   const minStr = hours > 0 ? `${min.toString().padStart(2, '0')}:` : `${min}:`;
-  // 초 단위 처리
   const secStr = `${sec.toString().padStart(2, '0')}`;
 
   return `${hoursStr}${minStr}${secStr}`;

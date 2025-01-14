@@ -221,38 +221,47 @@ function InitPlayerService() {
 
     goPrev: (): void => {
       update(state => {
-        const newIndex = state.index > 0 ? state.index - 1 : 0;
-
-        if (audio.currentTime < 3) {
-          PlayerService.setTrack(newIndex);
-        }
-        else {
+        const newIndex =
+          state.index > 0 ? state.index - 1 : state.loop === 1 ? state.lists.length - 1 : 0;
+    
+        // Check audio position first
+        if (audio.currentTime >= 3) {
           audio.currentTime = 0;
+          return state; // Do not change the state
         }
-
-        return {
+    
+        // Update state first
+        const updatedState = {
           ...state,
           index: newIndex,
         };
+    
+        PlayerService.setTrack(updatedState.index);
+        return updatedState;
       });
     },
 
     goNext: (): void => {
       update(state => {
-        let newIndex = state.index + 1;
-
-        if (state.lists[newIndex]) {
+        let newIndex = state.index;
+    
+        if (state.lists.length - 1 > state.index) {
+          newIndex += 1;
+        } else if (state.loop === 1) {
+          newIndex = 0; // 전체 리스트 반복
+        } else if (state.loop === 2) {
+          newIndex = state.index; // 현재 트랙 반복
+        } else {
+          return state;
+        }
+    
+        const updatedState = { ...state, index: newIndex };
+    
+        if (updatedState.lists[newIndex]) {
           PlayerService.setTrack(newIndex);
         }
-        else if (state.loop === 1) {
-          PlayerService.setTrack(0);
-          newIndex = 0;
-        }
-
-        return {
-          ...state,
-          index: newIndex,
-        };
+    
+        return updatedState;
       });
     },
 

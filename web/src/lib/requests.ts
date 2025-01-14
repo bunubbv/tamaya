@@ -221,7 +221,7 @@ export async function getPlaylists(
 
   try {
     const fetchArtists = await apiFetch(fetch,
-      `http://localhost:2843/api/playlists`);
+      `http://localhost:2843/api/playlists?start=${start}&end=${end}`);
 
     if (!fetchArtists.ok) {
       throw new Error(fetchArtists.statusText);
@@ -241,5 +241,31 @@ export async function getPlaylists(
         "total": 0,
       },
     }
+  }
+};
+
+
+export async function getPlaylist(
+  fetch: typeof window.fetch,
+  playListId: string,
+): Promise<{response: PlaylistResponse;}> {
+
+  try {
+    const fetchPlaylist = await apiFetch(fetch,
+      `http://localhost:2843/api/playlists/${playListId}`);
+
+    if (!fetchPlaylist.ok) {
+      throw new Error(fetchPlaylist.statusText);
+    }
+
+    const response: PlaylistResponse = await fetchPlaylist.json();
+
+    return {
+      response,
+    };
+  }
+
+  catch (error) {
+    throw error;
   }
 };

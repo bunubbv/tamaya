@@ -1,36 +1,16 @@
 import uuid
-from argon2 import PasswordHasher
-from argon2.exceptions import VerifyMismatchError
-from diskcache import Cache
 from typing import Any
+from diskcache import Cache
 from core.config import Config
 
 
-class AuthService:
+class SessionService:
     dc = Cache(Config.DATADIR)
-    ph = PasswordHasher()
-
-
-    @classmethod
-    def password_encode(cls, password: str) -> str:
-        return cls.ph.hash(password)
-
-
-    @classmethod
-    def password_verify(cls, hash_str: str | None, password: str) -> bool:
-        try:
-            if not hash_str: return False
-            cls.ph.verify(hash_str, password)
-            return True
-        
-        except VerifyMismatchError:
-            return False
-
 
     @classmethod
     def create_session(cls, user_id: str) -> str:
         session_id = str(uuid.uuid4())
-        cls.dc.set(session_id, user_id, expire=60 * 60 * 24 * 28)
+        cls.dc.set(session_id, user_id, expire=60 * 60 * 24 * 28) # 30 days
         return session_id
     
 

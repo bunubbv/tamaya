@@ -11,8 +11,7 @@ async def api_get_tracks(
     service: get_library_service = Depends(),
 ) -> TracksResponseModel:
     
-    tracks = await service.get_tracks(start, end)
-    return tracks
+    return await service.get_tracks(start, end)
 
 
 @router.get('/tracks/{track_id}', response_model=TrackResponseModel)
@@ -21,5 +20,4 @@ async def api_get_track(
     service: get_library_service = Depends(),
 ) -> TrackResponseModel:
     
-    track = await service.get_track(track_id)
-    return track
+    return await service.get_track(track_id)

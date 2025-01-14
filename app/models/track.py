@@ -44,7 +44,7 @@ class Track(Base):
     lyrics: str = Column(Text, nullable=False)
     samplerate: int = Column(Integer, nullable=False)
     title: str = Column(String, nullable=False)
-    track_id: str = Column(String(32), primary_key=True, nullable=False)
+    track_id: str = Column(String(32), ForeignKey('playlists_data.track_id'), primary_key=True, nullable=False)
     track_number: int = Column(Integer, nullable=False)
     track_total: int = Column(Integer, nullable=False)
     updated_at: DateTime = Column(

@@ -160,8 +160,9 @@ export interface PlayerStore extends PlayerState, Tracks {
 
 export interface Playlist {
   playlist_id: string;
-  playlist_name: string;
-  playlist_user: string;
+  playlist_title: string;
+  playlist_user_id: string;
+  playlist_username: string;
   created_at: string;
   updated_at: string;
 };
@@ -171,6 +172,18 @@ export interface PlaylistData {
   playlist_id: string;
   track_id: string;
   added_at: string;
+  order: number;
+};
+
+
+export interface PlaylistTrack {
+  album: string;
+  album_id: string;
+  artist: string;
+  artist_id: string;
+  duration: number;
+  title: string;
+  track_id: string;
 };
 
 
@@ -180,6 +193,6 @@ export interface PlaylistsResponse {
 };
 
 
-export interface PlaylistResponse {
-  tracks: AlbumTrack[];
+export interface PlaylistResponse extends Playlist {
+  tracks: PlaylistTrack[];
 };

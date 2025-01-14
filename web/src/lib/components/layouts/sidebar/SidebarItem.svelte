@@ -1,12 +1,31 @@
 <script lang="ts">
   import Icon from '@iconify/svelte';
+  export let src: string | undefined = undefined;
   export let icon: string | undefined = undefined;
   export let href: string;
+
+  $: showArtwork = true;
 </script>
 
 <li>
   <a {href}>
-    {#if icon}
+    {#if src && showArtwork}
+      <span>
+        <!-- svelte-ignore a11y-missing-attribute -->
+        <img
+          {src}
+          width="24"
+          height="24"
+          on:error={() => showArtwork = !showArtwork}
+        />
+      </span>
+    {:else if src && icon}
+      <span>
+        <Icon {icon} width="24" height="24" />
+      </span>
+    {/if}
+
+    {#if !src && icon}
       <span>
         <Icon {icon} width="24" height="24" />
       </span>
@@ -55,6 +74,14 @@
     align-items: center;
     justify-content: center;
     margin-left: 2px;
+  }
+
+  img {
+    border-radius: calc(var(--radius-s) / 2);
+    display: flex;
+    color: var(--dark-text-sub);
+    align-items: center;
+    justify-content: center;
   }
 
   /* li {
